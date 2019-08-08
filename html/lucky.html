@@ -111,8 +111,8 @@
             allName.splice($.inArray(allName[luckNum], allName), 1);
             allPhone.splice($.inArray(allPhone[luckNum], allPhone), 1);
             allPeople.splice(luckNum,1);
-            pcount = allName.length;
-            luckPeople = allPeople.length;
+            pcount = allName.length-1;
+            luckPeople = allPeople.length-1;
             localStorage.setItem("allPeople",JSON.stringify(allPeople));
             // winNum++;
             td = td - 1;
