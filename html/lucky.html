@@ -92,7 +92,6 @@
         }
         //停止跳动
         function stop() {
-            pcount = allName.length;
             clearInterval(t);
             t = 0;
         }
@@ -112,6 +111,7 @@
             allName.splice($.inArray(allName[luckNum], allName), 1);
             allPhone.splice($.inArray(allPhone[luckNum], allPhone), 1);
             allPeople.splice(luckNum,1);
+            pcount = allName.length-1;
             luckPeople = allPeople.length;
             localStorage.setItem("allPeople",JSON.stringify(allPeople));
             // winNum++;
