@@ -128,13 +128,10 @@
         var firstcolumns = [
             {
                 field: "check", title: "", checkbox: true, formatter: function (value, row, index) {
-//                return row.index = index + 1; //返回行号
                 }
             },
             {
                 field: "id", title: "ID", align: "center", edit: false, formatter: function (value, row, index) {
-//                console.log(index)
-//                return row.index = index ; //返回行号
                     return index + 1;
                 }
             }
@@ -142,7 +139,6 @@
 
         var lastcolumns = {
             field: "id", title: "操作", align: "center", formatter: function (value, row, index) {
-
                 var html = '';
                 html += '<a href="javascript:void(0);" onclick="removeData(' + row.id + ')" ><li class="glyphicon glyphicon-remove"></li>删除</a>';
                 return html; //返回行号
@@ -157,24 +153,17 @@
                     title: '',
                     disabled: true,
                     emptytext: '无',
-//                    validate:function () {
-//
-//                    }
                 }
             }
             obj.field = gtitle[a];
             obj.title = a;
             obj.editable.title = a;
-
             firstcolumns.push(obj);
         }
 
         firstcolumns.push(lastcolumns);
-
         return firstcolumns;
-
     }
-
 
     var TableInit = function (data, columns) {
         var oTableInit = new Object();
@@ -229,8 +218,6 @@
         };
         return oInit;
     };
-    // let winpeople = ZJArr;
-    // localStorage.setItem("winningPeople", JSON.stringify(winpeople));
     $('#btn_get').click(function () {
         var table = $table.bootstrapTable('getData');
         var type = $('#identitys input:radio:checked').val();
@@ -244,14 +231,9 @@
         }
         if (type == 0) {
             localStorage.setItem("allPeople", JSON.stringify(table));
-        } else {
-            localStorage.setItem("winningPeople", JSON.stringify(table));
         }
         alert("提交成功")
     })
-    // $("#lucky").click(function() {
-    //     window.open('/index.html');
-    // });
     function addcolumns() {
         var table = $table.bootstrapTable('getData'),
             length = table.length;
@@ -285,11 +267,6 @@
     function removeData(index) {
         $table.bootstrapTable('remove', {field: 'id', values: [index]});
     }
-
-    //    $table.on("click-row.bs.table",function(e, row, $element) {
-    //        var  index= $element.data('index');
-    //        alert(index);
-    //    });
 
     function importfile(file) {//导入
         var f = file.files[0];
