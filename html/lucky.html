@@ -38,31 +38,21 @@
                 return false;
             }
         }   
-        var allName = new Array();
-        var allPhone = new Array();
-        // var winName = new Array();
-        // var winPhone = new Array();
+        var allInfo = new Array();
         var allPeople = localStorage.getItem("allPeople") ? JSON.parse(localStorage.getItem("allPeople")) : "";
-        // var winningPeople = localStorage.getItem("winningPeople") ? JSON.parse(localStorage.getItem("winningPeople")) : "";
        
         for(let i =0;i<allPeople.length;i++) {
-            allName.push(allPeople[i]['name']);
-            allPhone.push(allPeople[i]['phone']);
+            allInfo.push(allPeople[i]['name'] + '-' + allPeople[i]['phone']);
         }
-        // for(let j =0;j<winningPeople.length;j++) {
-        //     winName.push(winningPeople[j]['name']);
-        //     winPhone.push(winningPeople[j]['phone']);
-        // }
         var nametxt = $('.name');
         var phonetxt = $('.phone');
-        var pcount = allName.length - 1; //参加人数
-        var luckPeople = allName.length - 1;//内定中奖人数
+        var pcount = allInfo.length - 1;
+        var luckPeople = allInfo.length - 1;
         var runing = true;
-        var td = allName.length; //内定中奖,从最小奖开始，共指导个名额
+        var td = allInfo.length;
         var num = 0;
-        var allNum = 0;//中奖顺序
         var t;
-        var luckNum = 0;//中级名单
+        var luckNum = 0;
         //开始停止
         function start() {
             if(!localStorage.getItem("allPeople")) {
@@ -86,13 +76,14 @@
         function startNum() {
             num = Math.floor(Math.random() * pcount);
             luckNum = Math.floor(Math.random() * luckPeople);
-            nametxt.html(allName[num]);
-            phonetxt.html(allPhone[num]);
+            var data = allInfo[num];
+            var arr = data.split('-');
+            nametxt.html(arr[0]);
+            phonetxt.html(arr[1]);
             t = setTimeout(startNum, 0);
         }
         //停止跳动
         function stop() {
-            pcount = allName.length - 1;
             clearInterval(t);
             t = 0;
         }
@@ -103,18 +94,19 @@
                 localStorage.setItem("allPeople","");
                 return false;
             }
-            nametxt.html(allName[luckNum]);
-            phonetxt.html(allPhone[luckNum]);
+            var data = allInfo[luckNum];
+            var arr = data.split('-');
+            nametxt.html(arr[0]);
+            phonetxt.html(arr[1]);
             //打印中奖者名单
-            $('.list').prepend("<p>" + allName[luckNum] + " -- " + allPhone[luckNum] + "</p>");
+            $('.list').prepend("<p>" + allInfo[luckNum] + "</p>");
             
             //将已中奖者从数组中"删除",防止二次中奖
-            allName.splice($.inArray(allName[luckNum], allName), 1);
-            allPhone.splice($.inArray(allPhone[luckNum], allPhone), 1);
+            allInfo.splice($.inArray(allInfo[luckNum], allInfo), 1);
             allPeople.splice(luckNum,1);
-            luckPeople = allPeople.length-1;
+            pcount = allInfo.length-1;
+            luckPeople = allPeople.length;
             localStorage.setItem("allPeople",JSON.stringify(allPeople));
-            allNum++;
             td = td - 1;
         }
     </script>
